@@ -144,3 +144,12 @@ LOGO BACKGROUND ANIMATION STYLES
     from { transform: rotate(360deg); }
     to { transform: rotate(0deg); }
 }
+/* Styling for the new Team Name heading */
+.team-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--green);
+    margin-top: -10px; /* Upar se thoda gap kam karne ke liye */
+    margin-bottom: 25px; /* Neeche thoda gap dene ke liye */
+    letter-spacing: 1px;
+}
