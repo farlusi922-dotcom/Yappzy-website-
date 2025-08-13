@@ -19,7 +19,9 @@ body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(-
 .ad-container.animate-pop-in { animation-delay: 1s; }
 @keyframes popIn { to { opacity: 1; transform: translateY(0) scale(1); } }
 .container { max-width: 800px; margin: 40px auto; padding: 40px; background: rgba(44, 62, 80, 0.8); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
-.logo { width: 140px; margin: 20px 0; }
+
+/* ▼▼▼ YEH EK CHHOTA BADLAV HAI ▼▼▼ */
+/* .logo waale rule se margin: 20px 0 hata diya gaya hai kyonki ab container size handle kar raha hai */
 .title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -1px; }
 .title span { background: linear-gradient(90deg, var(--saffron), var(--white), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .subtitle { font-size: 1.5rem; color: var(--green); font-weight: 600; }
@@ -32,7 +34,6 @@ button { background: linear-gradient(90deg, var(--saffron), var(--green)); color
 button:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
 button:disabled { background: grey; cursor: not-allowed; transform: none; box-shadow: none; }
 .spinner { border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: #fff; width: 20px; height: 20px; animation: spin 1s ease-in-out infinite; display: inline-block; }
-@keyframes spin { to { transform: rotate(360deg); } }
 .ad-container img { max-width: 100%; border-radius: 15px; margin-top: 20px; }
 .gift-boxes { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 40px; perspective: 1200px; }
 .gift-box { width: 150px; height: 150px; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
@@ -47,27 +48,13 @@ button:disabled { background: grey; cursor: not-allowed; transform: none; box-sh
 footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
 .social-media img { width: 40px; margin: 10px; transition: transform 0.2s; }
 .social-media img:hover { transform: scale(1.2) rotate(10deg); }
-/* OK Button Styling */
-.home-btn {
-    background: linear-gradient(90deg, var(--saffron), var(--green));
-    color: var(--white);
-    padding: 12px 35px; /* Thoda chhota size */
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-top: 25px; /* Upar se thoda gap */
-    transition: all 0.3s ease;
-}
+.home-btn { background: linear-gradient(90deg, var(--saffron), var(--green)); color: var(--white); padding: 12px 35px; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; font-weight: 600; margin-top: 25px; transition: all 0.3s ease; }
+.home-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
+.team-name { font-size: 1.8rem; font-weight: 700; color: var(--green); margin-top: -10px; margin-bottom: 25px; letter-spacing: 1px; }
 
-.home-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
-}
 /*
 =========================================
-LOGO BACKGROUND ANIMATION STYLES
+NEW PREMIUM LOGO ANIMATION STYLES
 =========================================
 */
 
@@ -76,80 +63,88 @@ LOGO BACKGROUND ANIMATION STYLES
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 250px; /* Container ka size */
-    height: 250px;
-    margin: 0 auto; /* Header mein center karne ke liye */
+    width: 300px;
+    height: 300px;
+    margin: -20px auto;
 }
 
 .logo {
-    /* Logo ko animation ke upar rakhne ke liye */
     position: relative;
-    z-index: 2;
-    width: 140px; /* Aapke logo ka original size */
+    z-index: 10;
+    width: 140px;
     height: auto;
 }
 
-/* Spinning Chakra Element */
-.chakra-spinner {
+/* Layer 1: Pulsing Glow */
+.pulsing-glow {
     position: absolute;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+    border-radius: 50%;
+    animation: pulse 4s infinite ease-in-out;
+    z-index: 1;
+}
+
+/* Layer 2: Mandala Rings */
+.mandala-ring {
+    position: absolute;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: transparent;
+    z-index: 2;
+}
+.mandala-ring.outer {
+    width: 240px;
+    height: 240px;
+    border-width: 2px;
+    border-image: linear-gradient(45deg, var(--saffron), #ffdba4) 1;
+    animation: spin 25s linear infinite;
+}
+.mandala-ring.inner {
     width: 200px;
     height: 200px;
-    border: 2px solid rgba(0, 0, 128, 0.5); /* Faint Blue */
+    border-width: 3px;
+    border-image: linear-gradient(45deg, var(--green), #9effa3) 1;
+    animation: spin-reverse 20s linear infinite;
+}
+
+/* Layer 3: Orbiting Sparkles */
+.sparkles-container {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    animation: spin 30s linear infinite;
+    z-index: 3;
+}
+.sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: var(--white);
     border-radius: 50%;
-    animation: spin 20s linear infinite;
-    z-index: 1;
+    box-shadow: 0 0 8px var(--white);
+    animation: twinkle 2s infinite ease-in-out;
 }
-
-/* Sunburst Rays Container */
-.rays-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    animation: spin-reverse 60s linear infinite;
-    z-index: 1;
-}
-
-.ray {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 2px;
-    height: 250px; /* Rays ki lambaai */
-    transform-origin: center;
-    opacity: 0.6;
-}
-
-/* Assigning rotation and color to each ray */
-.ray:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); background: var(--saffron); }
-.ray:nth-child(2) { transform: translate(-50%, -50%) rotate(30deg); background: var(--white); }
-.ray:nth-child(3) { transform: translate(-50%, -50%) rotate(60deg); background: var(--green); }
-.ray:nth-child(4) { transform: translate(-50%, -50%) rotate(90deg); background: var(--saffron); }
-.ray:nth-child(5) { transform: translate(-50%, -50%) rotate(120deg); background: var(--white); }
-.ray:nth-child(6) { transform: translate(-50%, -50%) rotate(150deg); background: var(--green); }
-.ray:nth-child(7) { transform: translate(-50%, -50%) rotate(180deg); background: var(--saffron); }
-.ray:nth-child(8) { transform: translate(-50%, -50%) rotate(210deg); background: var(--white); }
-.ray:nth-child(9) { transform: translate(-50%, -50%) rotate(240deg); background: var(--green); }
-.ray:nth-child(10) { transform: translate(-50%, -50%) rotate(270deg); background: var(--saffron); }
-.ray:nth-child(11) { transform: translate(-50%, -50%) rotate(300deg); background: var(--white); }
-.ray:nth-child(12) { transform: translate(-50%, -50%) rotate(330deg); background: var(--green); }
-
+.sparkle:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
+.sparkle:nth-child(2) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: -1s; }
+.sparkle:nth-child(3) { left: 0; top: 50%; transform: translateY(-50%); animation-delay: -0.5s; }
+.sparkle:nth-child(4) { right: 0; top: 50%; transform: translateY(-50%); animation-delay: -1.5s; }
 
 /* Keyframe Animations */
+@keyframes pulse {
+    0%, 100% { transform: scale(0.9); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
 @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
-
 @keyframes spin-reverse {
     from { transform: rotate(360deg); }
     to { transform: rotate(0deg); }
 }
-/* Styling for the new Team Name heading */
-.team-name {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--green);
-    margin-top: -10px; /* Upar se thoda gap kam karne ke liye */
-    margin-bottom: 25px; /* Neeche thoda gap dene ke liye */
-    letter-spacing: 1px;
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
 }
