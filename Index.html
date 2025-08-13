@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yappzy - Independence Day Special Offer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio autoplay loop id="background-music">
+        <source src="we.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="background-animation"></div>
+
+    <header class="fade-in">
+        <img src="logo.png" alt="Yappzy Logo" class="logo">
+    </header>
+
+    <main>
+        <section class="container" id="main-container">
+            <div class="hero-section">
+                <h1 class="title animate-pop-in">Celebrate The Spirit of <span>Freedom</span></h1>
+                <h2 class="subtitle animate-pop-in">Yappzy Independence Day Launch Offer!</h2>
+                <p class="offer-description animate-pop-in">
+                    Be one of the first 1000 patriots to register and get a <strong>Guaranteed Verification Badge</strong> & <strong>Free Monetization Criteria</strong> upon our app launch in November 2025.
+                </p>
+                
+                <form id="registration-form" class="animate-pop-in">
+                    <input type="email" id="email" placeholder="Enter your Gmail to secure your spot" required>
+                    <button type="submit" id="submit-button">
+                        <span class="button-text">Register & Claim Your Prize</span>
+                        <span class="spinner" style="display: none;"></span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="ad-container animate-pop-in">
+                <img src="we.png" alt="Shah Rukh Khan for Yappzy">
+            </div>
+        </section>
+
+        <section class="container gift-container" id="gift-container" style="display: none;">
+            <h2 class="title">Congratulations, You're In!</h2>
+            <p>Your patriotism is rewarded! Click a gift box below to unveil your exclusive prize.</p>
+            <div class="gift-boxes">
+                <!-- 6 Gift Boxes will be dynamically created here -->
+            </div>
+            <div id="gift-message-container" style="display: none;">
+                <p id="gift-message"></p>
+                <p class="post-reveal-message">Your gift is now tied to your registered Gmail. See you at the launch!</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="fade-in">
+        <p>Follow the Revolution!</p>
+        <div class="social-media">
+            <a href="https://www.instagram.com/yappzy.online?igsh=c21wMW9odmN0aGIx" target="_blank" title="Instagram">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+            </a>
+        </div>
+        <p class="copyright">&copy; 2025 Yappzy. All Rights Reserved.</p>
+    </footer>
+    
+    <!-- IMPORTANT: The script is now a module to support Firebase v9 -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
