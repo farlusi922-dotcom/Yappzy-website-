@@ -13,10 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonText = document.querySelector('.button-text');
     const spinner = document.querySelector('.spinner');
     const bulletSound = document.getElementById('bullet-sound');
-    const boxOpenSound = document.getElementById('box-open-sound'); // New sound element
+    const boxOpenSound = document.getElementById('box-open-sound');
 
     const registeredEmail = localStorage.getItem('yappzy_registered_email');
-    if (registeredEmail) { showThankYouMessage(); }
+    if (registeredEmail) {
+        showThankYouMessage(true); // Pass true to show share button immediately
+    }
 
     registrationForm.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -37,39 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function showGiftSection() {
         const giftContainer = document.getElementById('gift-container');
         const giftBoxesContainer = document.querySelector('.gift-boxes');
-        giftBoxesContainer.innerHTML = ''; // Clear previous content
+        giftBoxesContainer.innerHTML = '';
         giftContainer.style.display = 'block';
-
-        // Create 3 premium gift boxes
         for (let i = 0; i < 3; i++) {
             const scene = document.createElement('div');
             scene.className = 'gift-box-scene';
-            scene.innerHTML = `
-                <div class="gift-box-container">
-                    <div class="box-lid">
-                        <div class="box-face top"></div>
-                        <div class="ribbon-face top-h"></div>
-                        <div class="ribbon-face top-v"></div>
-                        <div class="box-face front"></div>
-                        <div class="box-face back"></div>
-                        <div class="box-face left"></div>
-                        <div class="box-face right"></div>
-                    </div>
-                    <div class="box-base">
-                        <div class="box-face front"></div>
-                        <div class="ribbon-face front-v"></div>
-                        <div class="box-face back"></div>
-                        <div class="box-face left"></div>
-                        <div class="box-face right"></div>
-                        <div class="ribbon-face right-v"></div>
-                        <div class="box-face bottom"></div>
-                    </div>
-                    <div class="box-glow"></div>
-                    <div class="prize-card">
-                        <h4>You've Won</h4>
-                        <p class="prize-text"></p>
-                    </div>
-                </div>`;
+            scene.innerHTML = `<div class="gift-box-container"><div class="box-lid"><div class="box-face top"></div><div class="ribbon-face top-h"></div><div class="ribbon-face top-v"></div><div class="box-face front"></div><div class="box-face back"></div><div class="box-face left"></div><div class="box-face right"></div></div><div class="box-base"><div class="box-face front"></div><div class="ribbon-face front-v"></div><div class="box-face back"></div><div class="box-face left"></div><div class="box-face right"></div><div class="ribbon-face right-v"></div><div class="box-face bottom"></div></div><div class="box-glow"></div><div class="prize-card"><h4>You've Won</h4><p class="prize-text"></p></div></div>`;
             scene.addEventListener('click', () => openGift(scene), { once: true });
             giftBoxesContainer.appendChild(scene);
         }
@@ -77,27 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function openGift(clickedScene) {
         if (boxOpenSound) { boxOpenSound.currentTime = 0; boxOpenSound.play(); }
-        
-        document.querySelectorAll('.gift-box-scene').forEach(scene => {
-            scene.style.pointerEvents = 'none'; // Disable clicking on other boxes
-        });
-
+        document.querySelectorAll('.gift-box-scene').forEach(scene => { scene.style.pointerEvents = 'none'; });
         const container = clickedScene.querySelector('.gift-box-container');
         container.classList.add('is-opening');
-        
         const gifts = ['₹500 Gift Voucher', '₹200 Cash Prize', 'Verification Badge!', 'Free Monetization!', 'Sorry, Empty Box!', 'Sorry, Empty Box!'];
         const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
         const email = localStorage.getItem('yappzy_registered_email');
-
-        // Update the prize card text
         clickedScene.querySelector('.prize-text').textContent = randomGift;
-
         try {
             const userRef = doc(db, "users", email);
             await updateDoc(userRef, { gift: randomGift });
-            console.log("Gift successfully updated!");
-
-            // Show the OK button after animation completes
             setTimeout(() => {
                 document.getElementById('gift-message-container').style.display = 'block';
                 const backToHomeBtn = document.getElementById('back-to-home-btn');
@@ -105,23 +69,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 backToHomeBtn.addEventListener('click', () => {
                     document.getElementById('gift-container').style.display = 'none';
                     document.getElementById('main-container').style.display = 'block';
-                    showThankYouMessage();
+                    showThankYouMessage(true); // Pass true to show share button
                 }, { once: true });
-            }, 2500); // Wait for animations to finish
-
+            }, 2500);
         } catch (error) {
             console.error("Error updating gift: ", error);
             clickedScene.querySelector('.prize-text').textContent = "Error!";
         }
     }
 
-    function showThankYouMessage() {
+    function showThankYouMessage(showShare = false) {
         const offerDescription = document.querySelector('.offer-description');
         const registrationForm = document.getElementById('registration-form');
         offerDescription.innerHTML = "<strong>Thank you for registering!</strong><br>We have saved your spot. We'll see you at the app launch in November 2025!";
         registrationForm.style.display = 'none';
+
+        if (showShare) {
+            const shareSection = document.getElementById('share-section');
+            shareSection.style.display = 'flex'; // Show the share section
+        }
     }
+
+    // Share Button Logic
+    const shareBtn = document.getElementById('share-btn');
+    shareBtn.addEventListener('click', async () => {
+        const shareData = {
+            title: 'Yappzy Independence Day Offer!',
+            text: 'I just won a prize on Yappzy\'s Independence Day event! Join now and get a free verification badge. #Yappzy #IndependenceDay',
+            url: window.location.href
+        };
+
+        if (navigator.share) { // If Web Share API is available
+            try {
+                await navigator.share(shareData);
+                console.log('Shared successfully');
+            } catch (err) {
+                console.error('Share failed:', err);
+            }
+        } else { // Fallback for desktop browsers
+            navigator.clipboard.writeText(shareData.url).then(() => {
+                shareBtn.textContent = 'Link Copied!';
+                setTimeout(() => {
+                    shareBtn.textContent = 'Share Now';
+                }, 2000);
+            });
+        }
+    });
     
+    // Music Logic
     const backgroundMusic = document.getElementById('background-music');
     let musicStarted = false;
     async function playMusic() { if (!musicStarted) { try { await backgroundMusic.play(); musicStarted = true; document.body.removeEventListener('click', playMusic); } catch (e) { console.error(e); } } }
