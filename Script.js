@@ -22,6 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const buttonText = document.querySelector('.button-text');
     const spinner = document.querySelector('.spinner');
 
+    // Check if user has already registered in this browser session
+    const registeredEmail = localStorage.getItem('yappzy_registered_email');
+    if (registeredEmail) {
+        showThankYouMessage();
+    }
+
     registrationForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const email = document.getElementById('email').value.trim().toLowerCase();
@@ -31,21 +37,21 @@ document.addEventListener('DOMContentLoaded', () => {
         spinner.style.display = 'inline-block';
 
         try {
-            // Use the email as the document ID for easy lookup
             const userRef = doc(db, "users", email);
             await setDoc(userRef, {
                 email: email,
-                gift: null, // Gift is initially null
+                gift: null,
                 registeredAt: new Date()
             });
 
             console.log("User successfully registered!");
+            localStorage.setItem('yappzy_registered_email', email); // Save registration status
             document.getElementById('main-container').style.display = 'none';
             showGiftSection();
 
         } catch (error) {
             console.error("Error writing document: ", error);
-            alert("Registration failed! This email might already be registered. Please try with another email or contact support.");
+            alert("Registration failed! This email might already be registered.");
             submitButton.disabled = false;
             buttonText.style.display = 'inline-block';
             spinner.style.display = 'none';
@@ -55,15 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function showGiftSection() {
         const giftContainer = document.getElementById('gift-container');
         const giftBoxesContainer = document.querySelector('.gift-boxes');
+        giftBoxesContainer.innerHTML = ''; // Clear previous boxes if any
         giftContainer.style.display = 'block';
 
         for (let i = 0; i < 6; i++) {
             const giftBox = document.createElement('div');
             giftBox.className = 'gift-box';
-            giftBox.innerHTML = `
-                <div class="box-face box-front">🎁</div>
-                <div class="box-face box-back"></div>
-            `;
+            giftBox.innerHTML = `<div class="box-face box-front">🎁</div><div class="box-face box-back"></div>`;
             giftBox.addEventListener('click', () => openGift(giftBox), { once: true });
             giftBoxesContainer.appendChild(giftBox);
         }
@@ -76,12 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         clickedBox.classList.add('is-opened');
         
-        const gifts = [
-            '₹500 Gift Voucher', '₹200 Cash Prize', 'Guaranteed Verification Badge!', 'Free Monetization!',
-            'Sorry, Empty Box!', 'Sorry, Empty Box!', 'Sorry, Empty Box!', 'Sorry, Empty Box!'
-        ];
+        const gifts = ['₹500 Gift Voucher', '₹200 Cash Prize', 'Guaranteed Verification Badge!', 'Free Monetization!', 'Sorry, Empty Box!', 'Sorry, Empty Box!'];
         const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
-        const email = document.getElementById('email').value.trim().toLowerCase();
+        const email = localStorage.getItem('yappzy_registered_email');
 
         const backFace = clickedBox.querySelector('.box-back');
         backFace.textContent = "Revealing...";
@@ -95,26 +96,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 backFace.textContent = randomGift;
                 document.getElementById('gift-message').textContent = `You've won: ${randomGift}`;
                 document.getElementById('gift-message-container').style.display = 'block';
+                
+                // Show the "OK" button
+                const backToHomeBtn = document.getElementById('back-to-home-btn');
+                backToHomeBtn.style.display = 'inline-block';
+                backToHomeBtn.addEventListener('click', () => {
+                    document.getElementById('gift-container').style.display = 'none';
+                    document.getElementById('main-container').style.display = 'block';
+                    showThankYouMessage(); // Show thank you message on home screen
+                });
             }, 800);
 
         } catch (error) {
             console.error("Error updating gift: ", error);
             backFace.textContent = "Error!";
-            alert("There was an error saving your gift. Please refresh and try again.");
         }
     }
+
+    function showThankYouMessage() {
+        const offerDescription = document.querySelector('.offer-description');
+        const registrationForm = document.getElementById('registration-form');
+        offerDescription.innerHTML = "<strong>Thank you for registering!</strong><br>We have saved your spot. We'll see you at the app launch in November 2025!";
+        registrationForm.style.display = 'none';
+    }
 });
+
 // ▼▼▼ MUSIC AUTOPLAY FIX ▼▼▼
 const backgroundMusic = document.getElementById('background-music');
 let musicStarted = false;
 
-// Is function se music start hoga
 async function playMusic() {
     if (!musicStarted) {
         try {
             await backgroundMusic.play();
             musicStarted = true;
-            // Pehli baar click ke baad is listener ko hata dein
             document.body.removeEventListener('click', playMusic);
             console.log("Music started successfully!");
         } catch (error) {
@@ -122,7 +137,5 @@ async function playMusic() {
         }
     }
 }
-
-// Body par kahin bhi click karne par music start karne ki koshish karein
 document.body.addEventListener('click', playMusic);
 // ▲▲▲ MUSIC AUTOPLAY FIX ▲▲▲
