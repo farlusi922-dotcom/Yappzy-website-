@@ -21,6 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton = document.getElementById('submit-button');
     const buttonText = document.querySelector('.button-text');
     const spinner = document.querySelector('.spinner');
+    
+    // ▼▼▼ NAYA BADLAV #1 ▼▼▼
+    const bulletSound = document.getElementById('bullet-sound');
 
     // Check if user has already registered in this browser session
     const registeredEmail = localStorage.getItem('yappzy_registered_email');
@@ -31,6 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
     registrationForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const email = document.getElementById('email').value.trim().toLowerCase();
+
+        // ▼▼▼ NAYA BADLAV #2 ▼▼▼
+        // Play the bullet sound on click
+        if (bulletSound) {
+            bulletSound.currentTime = 0; // Rewind to start, in case of rapid clicks
+            bulletSound.play();
+        }
         
         submitButton.disabled = true;
         buttonText.style.display = 'none';
@@ -46,8 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             console.log("User successfully registered!");
             localStorage.setItem('yappzy_registered_email', email); // Save registration status
-            document.getElementById('main-container').style.display = 'none';
-            showGiftSection();
+            
+            // Delay showing the gift section to let the sound play
+            setTimeout(() => {
+                document.getElementById('main-container').style.display = 'none';
+                showGiftSection();
+            }, 300); // 300ms ka chhota sa delay
 
         } catch (error) {
             console.error("Error writing document: ", error);
@@ -97,13 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('gift-message').textContent = `You've won: ${randomGift}`;
                 document.getElementById('gift-message-container').style.display = 'block';
                 
-                // Show the "OK" button
                 const backToHomeBtn = document.getElementById('back-to-home-btn');
                 backToHomeBtn.style.display = 'inline-block';
                 backToHomeBtn.addEventListener('click', () => {
                     document.getElementById('gift-container').style.display = 'none';
                     document.getElementById('main-container').style.display = 'block';
-                    showThankYouMessage(); // Show thank you message on home screen
+                    showThankYouMessage();
                 });
             }, 800);
 
@@ -142,15 +155,11 @@ document.body.addEventListener('click', playMusic);
 // ▼▼▼ PAUSE MUSIC WHEN TAB IS NOT VISIBLE ▼▼▼
 document.addEventListener('visibilitychange', () => {
     const backgroundMusic = document.getElementById('background-music');
-
-    // Check if the page is visible or not
     if (document.visibilityState === 'visible') {
-        // User wapas aaya hai, music chalao (agar pehle chal raha tha)
         if (!backgroundMusic.paused) {
             backgroundMusic.play().catch(e => console.error("Error resuming music", e));
         }
     } else {
-        // User ne tab badal liya hai, music pause karo
         backgroundMusic.pause();
     }
 });
