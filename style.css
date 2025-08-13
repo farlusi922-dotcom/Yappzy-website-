@@ -65,3 +65,82 @@ footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
     transform: translateY(-3px);
     box-shadow: 0 8px 15px rgba(0,0,0,0.3);
 }
+/*
+=========================================
+LOGO BACKGROUND ANIMATION STYLES
+=========================================
+*/
+
+.logo-animation-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px; /* Container ka size */
+    height: 250px;
+    margin: 0 auto; /* Header mein center karne ke liye */
+}
+
+.logo {
+    /* Logo ko animation ke upar rakhne ke liye */
+    position: relative;
+    z-index: 2;
+    width: 140px; /* Aapke logo ka original size */
+    height: auto;
+}
+
+/* Spinning Chakra Element */
+.chakra-spinner {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(0, 0, 128, 0.5); /* Faint Blue */
+    border-radius: 50%;
+    animation: spin 20s linear infinite;
+    z-index: 1;
+}
+
+/* Sunburst Rays Container */
+.rays-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spin-reverse 60s linear infinite;
+    z-index: 1;
+}
+
+.ray {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 250px; /* Rays ki lambaai */
+    transform-origin: center;
+    opacity: 0.6;
+}
+
+/* Assigning rotation and color to each ray */
+.ray:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); background: var(--saffron); }
+.ray:nth-child(2) { transform: translate(-50%, -50%) rotate(30deg); background: var(--white); }
+.ray:nth-child(3) { transform: translate(-50%, -50%) rotate(60deg); background: var(--green); }
+.ray:nth-child(4) { transform: translate(-50%, -50%) rotate(90deg); background: var(--saffron); }
+.ray:nth-child(5) { transform: translate(-50%, -50%) rotate(120deg); background: var(--white); }
+.ray:nth-child(6) { transform: translate(-50%, -50%) rotate(150deg); background: var(--green); }
+.ray:nth-child(7) { transform: translate(-50%, -50%) rotate(180deg); background: var(--saffron); }
+.ray:nth-child(8) { transform: translate(-50%, -50%) rotate(210deg); background: var(--white); }
+.ray:nth-child(9) { transform: translate(-50%, -50%) rotate(240deg); background: var(--green); }
+.ray:nth-child(10) { transform: translate(-50%, -50%) rotate(270deg); background: var(--saffron); }
+.ray:nth-child(11) { transform: translate(-50%, -50%) rotate(300deg); background: var(--white); }
+.ray:nth-child(12) { transform: translate(-50%, -50%) rotate(330deg); background: var(--green); }
+
+
+/* Keyframe Animations */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
