@@ -104,3 +104,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+// ▼▼▼ MUSIC AUTOPLAY FIX ▼▼▼
+const backgroundMusic = document.getElementById('background-music');
+let musicStarted = false;
+
+// Is function se music start hoga
+async function playMusic() {
+    if (!musicStarted) {
+        try {
+            await backgroundMusic.play();
+            musicStarted = true;
+            // Pehli baar click ke baad is listener ko hata dein
+            document.body.removeEventListener('click', playMusic);
+            console.log("Music started successfully!");
+        } catch (error) {
+            console.error("Music play failed:", error);
+        }
+    }
+}
+
+// Body par kahin bhi click karne par music start karne ki koshish karein
+document.body.addEventListener('click', playMusic);
+// ▲▲▲ MUSIC AUTOPLAY FIX ▲▲▲
