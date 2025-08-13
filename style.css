@@ -8,20 +8,15 @@
 }
 body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--dark-grey); color: var(--light-grey); text-align: center; overflow-x: hidden; }
 .background-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(255, 153, 51, 0.1), rgba(19, 136, 8, 0.1), rgba(0, 0, 128, 0.1)); background-size: 400% 400%; animation: gradient-flow 15s ease infinite; }
-@keyframes gradient-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+@keyframes gradient-flow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 .fade-in { animation: fadeIn 1.5s ease-in-out; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .animate-pop-in { opacity: 0; transform: translateY(20px) scale(0.95); animation: popIn 0.8s ease-out forwards; }
 .hero-section .animate-pop-in:nth-child(1) { animation-delay: 0.2s; }
 .hero-section .animate-pop-in:nth-child(2) { animation-delay: 0.4s; }
 .hero-section .animate-pop-in:nth-child(3) { animation-delay: 0.6s; }
-.hero-section .animate-pop-in:nth-child(4) { animation-delay: 0.8s; }
-.ad-container.animate-pop-in { animation-delay: 1s; }
 @keyframes popIn { to { opacity: 1; transform: translateY(0) scale(1); } }
 .container { max-width: 800px; margin: 40px auto; padding: 40px; background: rgba(44, 62, 80, 0.8); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
-.title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -1px; }
-.title span { background: linear-gradient(90deg, var(--saffron), var(--white), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.subtitle { font-size: 1.5rem; color: var(--green); font-weight: 600; }
 .offer-description { font-size: 1.1rem; line-height: 1.7; max-width: 600px; margin: 20px auto; }
 #registration-form { margin: 40px 0; }
 #email { width: 100%; max-width: 500px; padding: 18px; border: 2px solid var(--light-grey); border-radius: 50px; font-size: 1rem; background: rgba(0,0,0,0.2); color: var(--white); transition: all 0.3s; box-sizing: border-box; }
@@ -100,14 +95,12 @@ footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
 .social-media img:hover { transform: scale(1.2) rotate(10deg); }
 .home-btn { background: linear-gradient(90deg, var(--saffron), var(--green)); color: var(--white); padding: 12px 35px; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; font-weight: 600; margin-top: 25px; transition: all 0.3s ease; }
 .home-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
-.team-name { font-size: 1.8rem; font-weight: 700; color: var(--green); margin-top: -10px; margin-bottom: 25px; letter-spacing: 1px; }
 
 /*
 =========================================
 ULTRA PREMIUM COSMIC CHAKRA ANIMATION
 =========================================
 */
-
 .logo-animation-container {
     position: relative;
     display: flex;
@@ -115,17 +108,14 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     align-items: center;
     width: 320px;
     height: 320px;
-    margin: -30px auto; /* Adjust for better spacing */
+    margin: -30px auto;
 }
-
 .logo {
     position: relative;
     z-index: 10;
     width: 140px;
     height: auto;
 }
-
-/* Layer 1: Pulsing Energy */
 .pulsing-energy {
     position: absolute;
     width: 160px;
@@ -135,8 +125,6 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     animation: pulse 5s infinite ease-in-out;
     z-index: 1;
 }
-
-/* Layer 2: Cosmic Chakra Rings */
 .cosmic-chakra {
     position: absolute;
     width: 100%;
@@ -167,8 +155,6 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     animation: spin-reverse 30s linear infinite;
     opacity: 0.7;
 }
-
-/* Layer 3: Orbiting Comet */
 .comet-container {
     position: absolute;
     width: 280px;
@@ -187,8 +173,6 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     box-shadow: 0 0 15px 3px var(--white);
     animation: comet-orbit 2.5s infinite ease-in-out;
 }
-
-/* Keyframe Animations */
 @keyframes pulse {
     0%, 100% { transform: scale(0.8); opacity: 0.4; }
     50% { transform: scale(1); opacity: 0.8; }
@@ -204,4 +188,35 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
 @keyframes comet-orbit {
     0%, 100% { transform: translate(-50%, -10px) scale(0.5); opacity: 0.5; }
     50% { transform: translate(-50%, 10px) scale(1); opacity: 1; }
+}
+
+/*
+=========================================
+MULTI-LINE GRADIENT TITLE STYLES
+=========================================
+*/
+.multi-line-title span {
+    display: block; /* Har span ko apni alag line deta hai */
+    line-height: 1.3; /* Lines ke beech ka gap */
+}
+/* Pehli line ka style (Badi aur bold) */
+.multi-line-title span:nth-child(1) {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+/* Doosri line ka style (Chhoti aur halki) */
+.multi-line-title span:nth-child(2) {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-top: 10px; /* Upar waali line se thoda gap */
+}
+/* Gradient effect jo dono par lagega */
+.multi-line-title {
+    background: linear-gradient(90deg, var(--saffron), var(--white), var(--green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback ke liye */
+    margin-bottom: 25px; /* Neeche paragraph se thoda gap */
 }
