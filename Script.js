@@ -139,3 +139,19 @@ async function playMusic() {
 }
 document.body.addEventListener('click', playMusic);
 // ▲▲▲ MUSIC AUTOPLAY FIX ▲▲▲
+// ▼▼▼ PAUSE MUSIC WHEN TAB IS NOT VISIBLE ▼▼▼
+document.addEventListener('visibilitychange', () => {
+    const backgroundMusic = document.getElementById('background-music');
+
+    // Check if the page is visible or not
+    if (document.visibilityState === 'visible') {
+        // User wapas aaya hai, music chalao (agar pehle chal raha tha)
+        if (!backgroundMusic.paused) {
+            backgroundMusic.play().catch(e => console.error("Error resuming music", e));
+        }
+    } else {
+        // User ne tab badal liya hai, music pause karo
+        backgroundMusic.pause();
+    }
+});
+// ▲▲▲ PAUSE MUSIC WHEN TAB IS NOT VISIBLE ▲▲▲
