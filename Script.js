@@ -1,8 +1,17 @@
 // Import functions from the Firebase SDKs
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getFirestore, doc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
 // Your web app's Firebase configuration
-const firebaseConfig = { apiKey: "AIzaSyC3LsTKS2BGyL1rVrnkFHnZkuo-fQKFY2w", authDomain: "independence-day-yappzy.firebaseapp.com", projectId: "independence-day-yappzy", storageBucket: "independence-day-yappzy.appspot.com", messagingSenderId: "257916895856", appId: "1:257916895856:web:4a8c1e0f4d8c3fd2312ab5" };
+const firebaseConfig = {
+  apiKey: "AIzaSyC3LsTKS2BGyL1rVrnkFHnZkuo-fQKFY2w",
+  authDomain: "independence-day-yappzy.firebaseapp.com",
+  projectId: "independence-day-yappzy",
+  storageBucket: "independence-day-yappzy.appspot.com",
+  messagingSenderId: "257916895856",
+  appId: "1:257916895856:web:4a8c1e0f4d8c3fd2312ab5"
+};
+
 // Initialize Firebase and Firestore
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -12,106 +21,108 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitButton = document.getElementById('submit-button');
     const buttonText = document.querySelector('.button-text');
     const spinner = document.querySelector('.spinner');
+    
+    // ▼▼▼ NAYA BADLAV #1 ▼▼▼
     const bulletSound = document.getElementById('bullet-sound');
-    const boxOpenSound = document.getElementById('box-open-sound'); // New sound element
 
+    // Check if user has already registered in this browser session
     const registeredEmail = localStorage.getItem('yappzy_registered_email');
-    if (registeredEmail) { showThankYouMessage(); }
+    if (registeredEmail) {
+        showThankYouMessage();
+    }
 
     registrationForm.addEventListener('submit', async (event) => {
         event.preventDefault();
-        if (bulletSound) { bulletSound.currentTime = 0; bulletSound.play(); }
         const email = document.getElementById('email').value.trim().toLowerCase();
-        submitButton.disabled = true; buttonText.style.display = 'none'; spinner.style.display = 'inline-block';
+
+        // ▼▼▼ NAYA BADLAV #2 ▼▼▼
+        // Play the bullet sound on click
+        if (bulletSound) {
+            bulletSound.currentTime = 0; // Rewind to start, in case of rapid clicks
+            bulletSound.play();
+        }
+        
+        submitButton.disabled = true;
+        buttonText.style.display = 'none';
+        spinner.style.display = 'inline-block';
+
         try {
             const userRef = doc(db, "users", email);
-            await setDoc(userRef, { email: email, gift: null, registeredAt: new Date() });
-            localStorage.setItem('yappzy_registered_email', email);
-            setTimeout(() => { document.getElementById('main-container').style.display = 'none'; showGiftSection(); }, 300);
+            await setDoc(userRef, {
+                email: email,
+                gift: null,
+                registeredAt: new Date()
+            });
+
+            console.log("User successfully registered!");
+            localStorage.setItem('yappzy_registered_email', email); // Save registration status
+            
+            // Delay showing the gift section to let the sound play
+            setTimeout(() => {
+                document.getElementById('main-container').style.display = 'none';
+                showGiftSection();
+            }, 300); // 300ms ka chhota sa delay
+
         } catch (error) {
-            console.error("Error writing document: ", error); alert("Registration failed! This email might already be registered.");
-            submitButton.disabled = false; buttonText.style.display = 'inline-block'; spinner.style.display = 'none';
+            console.error("Error writing document: ", error);
+            alert("Registration failed! This email might already be registered.");
+            submitButton.disabled = false;
+            buttonText.style.display = 'inline-block';
+            spinner.style.display = 'none';
         }
     });
 
     function showGiftSection() {
         const giftContainer = document.getElementById('gift-container');
         const giftBoxesContainer = document.querySelector('.gift-boxes');
-        giftBoxesContainer.innerHTML = ''; // Clear previous content
+        giftBoxesContainer.innerHTML = ''; // Clear previous boxes if any
         giftContainer.style.display = 'block';
 
-        // Create 3 premium gift boxes
-        for (let i = 0; i < 3; i++) {
-            const scene = document.createElement('div');
-            scene.className = 'gift-box-scene';
-            scene.innerHTML = `
-                <div class="gift-box-container">
-                    <div class="box-lid">
-                        <div class="box-face top"></div>
-                        <div class="ribbon-face top-h"></div>
-                        <div class="ribbon-face top-v"></div>
-                        <div class="box-face front"></div>
-                        <div class="box-face back"></div>
-                        <div class="box-face left"></div>
-                        <div class="box-face right"></div>
-                    </div>
-                    <div class="box-base">
-                        <div class="box-face front"></div>
-                        <div class="ribbon-face front-v"></div>
-                        <div class="box-face back"></div>
-                        <div class="box-face left"></div>
-                        <div class="box-face right"></div>
-                        <div class="ribbon-face right-v"></div>
-                        <div class="box-face bottom"></div>
-                    </div>
-                    <div class="box-glow"></div>
-                    <div class="prize-card">
-                        <h4>You've Won</h4>
-                        <p class="prize-text"></p>
-                    </div>
-                </div>`;
-            scene.addEventListener('click', () => openGift(scene), { once: true });
-            giftBoxesContainer.appendChild(scene);
+        for (let i = 0; i < 6; i++) {
+            const giftBox = document.createElement('div');
+            giftBox.className = 'gift-box';
+            giftBox.innerHTML = `<div class="box-face box-front">🎁</div><div class="box-face box-back"></div>`;
+            giftBox.addEventListener('click', () => openGift(giftBox), { once: true });
+            giftBoxesContainer.appendChild(giftBox);
         }
     }
 
-    async function openGift(clickedScene) {
-        if (boxOpenSound) { boxOpenSound.currentTime = 0; boxOpenSound.play(); }
-        
-        document.querySelectorAll('.gift-box-scene').forEach(scene => {
-            scene.style.pointerEvents = 'none'; // Disable clicking on other boxes
+    async function openGift(clickedBox) {
+        document.querySelectorAll('.gift-box').forEach(box => {
+            box.style.pointerEvents = 'none';
         });
 
-        const container = clickedScene.querySelector('.gift-box-container');
-        container.classList.add('is-opening');
+        clickedBox.classList.add('is-opened');
         
-        const gifts = ['₹500 Gift Voucher', '₹200 Cash Prize', 'Verification Badge!', 'Free Monetization!', 'Sorry, Empty Box!', 'Sorry, Empty Box!'];
+        const gifts = ['₹500 Gift Voucher', '₹200 Cash Prize', 'Guaranteed Verification Badge!', 'Free Monetization!', 'Sorry, Empty Box!', 'Sorry, Empty Box!'];
         const randomGift = gifts[Math.floor(Math.random() * gifts.length)];
         const email = localStorage.getItem('yappzy_registered_email');
 
-        // Update the prize card text
-        clickedScene.querySelector('.prize-text').textContent = randomGift;
+        const backFace = clickedBox.querySelector('.box-back');
+        backFace.textContent = "Revealing...";
 
         try {
             const userRef = doc(db, "users", email);
             await updateDoc(userRef, { gift: randomGift });
             console.log("Gift successfully updated!");
 
-            // Show the OK button after animation completes
             setTimeout(() => {
+                backFace.textContent = randomGift;
+                document.getElementById('gift-message').textContent = `You've won: ${randomGift}`;
                 document.getElementById('gift-message-container').style.display = 'block';
+                
                 const backToHomeBtn = document.getElementById('back-to-home-btn');
                 backToHomeBtn.style.display = 'inline-block';
                 backToHomeBtn.addEventListener('click', () => {
                     document.getElementById('gift-container').style.display = 'none';
                     document.getElementById('main-container').style.display = 'block';
                     showThankYouMessage();
-                }, { once: true });
-            }, 2500); // Wait for animations to finish
+                });
+            }, 800);
 
         } catch (error) {
             console.error("Error updating gift: ", error);
-            clickedScene.querySelector('.prize-text').textContent = "Error!";
+            backFace.textContent = "Error!";
         }
     }
 
@@ -121,10 +132,35 @@ document.addEventListener('DOMContentLoaded', () => {
         offerDescription.innerHTML = "<strong>Thank you for registering!</strong><br>We have saved your spot. We'll see you at the app launch in November 2025!";
         registrationForm.style.display = 'none';
     }
-    
-    const backgroundMusic = document.getElementById('background-music');
-    let musicStarted = false;
-    async function playMusic() { if (!musicStarted) { try { await backgroundMusic.play(); musicStarted = true; document.body.removeEventListener('click', playMusic); } catch (e) { console.error(e); } } }
-    document.body.addEventListener('click', playMusic);
-    document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') { backgroundMusic.pause(); } else if (musicStarted) { backgroundMusic.play(); } });
 });
+
+// ▼▼▼ MUSIC AUTOPLAY FIX ▼▼▼
+const backgroundMusic = document.getElementById('background-music');
+let musicStarted = false;
+
+async function playMusic() {
+    if (!musicStarted) {
+        try {
+            await backgroundMusic.play();
+            musicStarted = true;
+            document.body.removeEventListener('click', playMusic);
+            console.log("Music started successfully!");
+        } catch (error) {
+            console.error("Music play failed:", error);
+        }
+    }
+}
+document.body.addEventListener('click', playMusic);
+// ▲▲▲ MUSIC AUTOPLAY FIX ▲▲▲
+// ▼▼▼ PAUSE MUSIC WHEN TAB IS NOT VISIBLE ▼▼▼
+document.addEventListener('visibilitychange', () => {
+    const backgroundMusic = document.getElementById('background-music');
+    if (document.visibilityState === 'visible') {
+        if (!backgroundMusic.paused) {
+            backgroundMusic.play().catch(e => console.error("Error resuming music", e));
+        }
+    } else {
+        backgroundMusic.pause();
+    }
+});
+// ▲▲▲ PAUSE MUSIC WHEN TAB IS NOT VISIBLE ▲▲▲
