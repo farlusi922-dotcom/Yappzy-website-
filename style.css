@@ -19,9 +19,6 @@ body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(-
 .ad-container.animate-pop-in { animation-delay: 1s; }
 @keyframes popIn { to { opacity: 1; transform: translateY(0) scale(1); } }
 .container { max-width: 800px; margin: 40px auto; padding: 40px; background: rgba(44, 62, 80, 0.8); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
-
-/* ▼▼▼ YEH EK CHHOTA BADLAV HAI ▼▼▼ */
-/* .logo waale rule se margin: 20px 0 hata diya gaya hai kyonki ab container size handle kar raha hai */
 .title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -1px; }
 .title span { background: linear-gradient(90deg, var(--saffron), var(--white), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .subtitle { font-size: 1.5rem; color: var(--green); font-weight: 600; }
@@ -54,7 +51,7 @@ footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
 
 /*
 =========================================
-NEW PREMIUM LOGO ANIMATION STYLES
+ULTRA PREMIUM COSMIC CHAKRA ANIMATION
 =========================================
 */
 
@@ -63,9 +60,9 @@ NEW PREMIUM LOGO ANIMATION STYLES
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 300px;
-    height: 300px;
-    margin: -20px auto;
+    width: 320px;
+    height: 320px;
+    margin: -30px auto; /* Adjust for better spacing */
 }
 
 .logo {
@@ -75,66 +72,73 @@ NEW PREMIUM LOGO ANIMATION STYLES
     height: auto;
 }
 
-/* Layer 1: Pulsing Glow */
-.pulsing-glow {
+/* Layer 1: Pulsing Energy */
+.pulsing-energy {
     position: absolute;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent 70%);
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(0, 0, 128, 0.4), transparent 70%);
     border-radius: 50%;
-    animation: pulse 4s infinite ease-in-out;
+    animation: pulse 5s infinite ease-in-out;
     z-index: 1;
 }
 
-/* Layer 2: Mandala Rings */
-.mandala-ring {
+/* Layer 2: Cosmic Chakra Rings */
+.cosmic-chakra {
     position: absolute;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
-    border-style: solid;
-    border-color: transparent;
+    background: conic-gradient(
+        from 0deg,
+        var(--saffron) 0 4deg, transparent 4deg 30deg,
+        var(--white) 30deg 34deg, transparent 34deg 60deg,
+        var(--green) 60deg 64deg, transparent 64deg 90deg,
+        var(--saffron) 90deg 94deg, transparent 94deg 120deg,
+        var(--white) 120deg 124deg, transparent 124deg 150deg,
+        var(--green) 150deg 154deg, transparent 154deg 180deg,
+        var(--saffron) 180deg 184deg, transparent 184deg 210deg,
+        var(--white) 210deg 214deg, transparent 214deg 240deg,
+        var(--green) 240deg 244deg, transparent 244deg 270deg,
+        var(--saffron) 270deg 274deg, transparent 274deg 300deg,
+        var(--white) 300deg 304deg, transparent 304deg 330deg,
+        var(--green) 330deg 334deg, transparent 334deg 360deg
+    );
     z-index: 2;
+    mask-image: radial-gradient(circle, transparent 100px, black 101px, black 120px, transparent 121px);
+    -webkit-mask-image: radial-gradient(circle, transparent 100px, black 101px, black 120px, transparent 121px);
 }
-.mandala-ring.outer {
-    width: 240px;
-    height: 240px;
-    border-width: 2px;
-    border-image: linear-gradient(45deg, var(--saffron), #ffdba4) 1;
-    animation: spin 25s linear infinite;
-}
-.mandala-ring.inner {
-    width: 200px;
-    height: 200px;
-    border-width: 3px;
-    border-image: linear-gradient(45deg, var(--green), #9effa3) 1;
-    animation: spin-reverse 20s linear infinite;
+.cosmic-chakra.fast { animation: spin 20s linear infinite; }
+.cosmic-chakra.slow {
+    transform: scale(0.8) rotate(15deg);
+    animation: spin-reverse 30s linear infinite;
+    opacity: 0.7;
 }
 
-/* Layer 3: Orbiting Sparkles */
-.sparkles-container {
+/* Layer 3: Orbiting Comet */
+.comet-container {
     position: absolute;
     width: 280px;
     height: 280px;
-    animation: spin 30s linear infinite;
+    animation: spin 10s linear infinite;
     z-index: 3;
 }
-.sparkle {
+.comet {
     position: absolute;
+    top: 0;
+    left: 50%;
     width: 5px;
     height: 5px;
     background: var(--white);
     border-radius: 50%;
-    box-shadow: 0 0 8px var(--white);
-    animation: twinkle 2s infinite ease-in-out;
+    box-shadow: 0 0 15px 3px var(--white);
+    animation: comet-orbit 2.5s infinite ease-in-out;
 }
-.sparkle:nth-child(1) { top: 0; left: 50%; transform: translateX(-50%); }
-.sparkle:nth-child(2) { bottom: 0; left: 50%; transform: translateX(-50%); animation-delay: -1s; }
-.sparkle:nth-child(3) { left: 0; top: 50%; transform: translateY(-50%); animation-delay: -0.5s; }
-.sparkle:nth-child(4) { right: 0; top: 50%; transform: translateY(-50%); animation-delay: -1.5s; }
 
 /* Keyframe Animations */
 @keyframes pulse {
-    0%, 100% { transform: scale(0.9); opacity: 0.5; }
-    50% { transform: scale(1.1); opacity: 1; }
+    0%, 100% { transform: scale(0.8); opacity: 0.4; }
+    50% { transform: scale(1); opacity: 0.8; }
 }
 @keyframes spin {
     from { transform: rotate(0deg); }
@@ -144,7 +148,7 @@ NEW PREMIUM LOGO ANIMATION STYLES
     from { transform: rotate(360deg); }
     to { transform: rotate(0deg); }
 }
-@keyframes twinkle {
-    0%, 100% { opacity: 0.5; transform: scale(0.8); }
-    50% { opacity: 1; transform: scale(1.2); }
+@keyframes comet-orbit {
+    0%, 100% { transform: translate(-50%, -10px) scale(0.5); opacity: 0.5; }
+    50% { transform: translate(-50%, 10px) scale(1); opacity: 1; }
 }
