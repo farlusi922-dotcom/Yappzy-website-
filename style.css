@@ -8,7 +8,7 @@
 }
 body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--dark-grey); color: var(--light-grey); text-align: center; overflow-x: hidden; }
 .background-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(255, 153, 51, 0.1), rgba(19, 136, 8, 0.1), rgba(0, 0, 128, 0.1)); background-size: 400% 400%; animation: gradient-flow 15s ease infinite; }
-@keyframes gradient-flow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes gradient-flow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 .fade-in { animation: fadeIn 1.5s ease-in-out; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .animate-pop-in { opacity: 0; transform: translateY(20px) scale(0.95); animation: popIn 0.8s ease-out forwards; }
@@ -32,6 +32,16 @@ button:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0
 button:disabled { background: grey; cursor: not-allowed; transform: none; box-shadow: none; }
 .spinner { border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: #fff; width: 20px; height: 20px; animation: spin 1s ease-in-out infinite; display: inline-block; }
 .ad-container img { max-width: 100%; border-radius: 15px; margin-top: 20px; }
+.gift-boxes { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-top: 40px; perspective: 1200px; }
+.gift-box { width: 150px; height: 150px; position: relative; transform-style: preserve-3d; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
+.gift-box:hover { transform: translateY(-10px) scale(1.05); }
+.gift-box.is-opened { transform: rotateY(180deg) scale(1.1); pointer-events: none; }
+.box-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+.box-front { background: linear-gradient(145deg, var(--saffron), #d47e2a); font-size: 80px; }
+.box-back { background: linear-gradient(145deg, var(--green), #0f6a06); transform: rotateY(180deg); font-size: 1.2rem; padding: 10px; color: var(--white); font-weight: 600; }
+#gift-message-container { margin-top: 40px; animation: fadeIn 1s; }
+#gift-message { font-size: 2rem; font-weight: 700; color: var(--saffron); }
+.post-reveal-message { color: var(--light-grey); font-size: 1.1rem; }
 footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
 .social-media img { width: 40px; margin: 10px; transition: transform 0.2s; }
 .social-media img:hover { transform: scale(1.2) rotate(10deg); }
@@ -41,62 +51,104 @@ footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
 
 /*
 =========================================
-PREMIUM 3D GIFT BOX STYLES
+ULTRA PREMIUM COSMIC CHAKRA ANIMATION
 =========================================
 */
-.gift-boxes {
+
+.logo-animation-container {
+    position: relative;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 50px;
-    margin-top: 50px;
+    align-items: center;
+    width: 320px;
+    height: 320px;
+    margin: -30px auto; /* Adjust for better spacing */
 }
-.gift-box-scene {
-    width: 200px;
-    height: 200px;
-    perspective: 1000px;
-    cursor: pointer;
+
+.logo {
+    position: relative;
+    z-index: 10;
+    width: 140px;
+    height: auto;
 }
-.gift-box-container {
+
+/* Layer 1: Pulsing Energy */
+.pulsing-energy {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(0, 0, 128, 0.4), transparent 70%);
+    border-radius: 50%;
+    animation: pulse 5s infinite ease-in-out;
+    z-index: 1;
+}
+
+/* Layer 2: Cosmic Chakra Rings */
+.cosmic-chakra {
+    position: absolute;
     width: 100%;
     height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transform: rotateX(-15deg) rotateY(25deg);
-    transition: transform 0.5s;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        var(--saffron) 0 4deg, transparent 4deg 30deg,
+        var(--white) 30deg 34deg, transparent 34deg 60deg,
+        var(--green) 60deg 64deg, transparent 64deg 90deg,
+        var(--saffron) 90deg 94deg, transparent 94deg 120deg,
+        var(--white) 120deg 124deg, transparent 124deg 150deg,
+        var(--green) 150deg 154deg, transparent 154deg 180deg,
+        var(--saffron) 180deg 184deg, transparent 184deg 210deg,
+        var(--white) 210deg 214deg, transparent 214deg 240deg,
+        var(--green) 240deg 244deg, transparent 244deg 270deg,
+        var(--saffron) 270deg 274deg, transparent 274deg 300deg,
+        var(--white) 300deg 304deg, transparent 304deg 330deg,
+        var(--green) 330deg 334deg, transparent 334deg 360deg
+    );
+    z-index: 2;
+    mask-image: radial-gradient(circle, transparent 100px, black 101px, black 120px, transparent 121px);
+    -webkit-mask-image: radial-gradient(circle, transparent 100px, black 101px, black 120px, transparent 121px);
 }
-.gift-box-scene:hover .gift-box-container {
-    transform: rotateX(-15deg) rotateY(25deg) scale(1.1);
+.cosmic-chakra.fast { animation: spin 20s linear infinite; }
+.cosmic-chakra.slow {
+    transform: scale(0.8) rotate(15deg);
+    animation: spin-reverse 30s linear infinite;
+    opacity: 0.7;
 }
-.box-face, .ribbon-face {
-    position: absolute;
-    border: 2px solid #333;
-}
-/* Box Base */
-.box-base .front { width: 200px; height: 100px; bottom: 0; background: #6a0d0d; transform: translateZ(100px); }
-.box-base .back { width: 200px; height: 100px; bottom: 0; background: #6a0d0d; transform: rotateY(180deg) translateZ(100px); }
-.box-base .right { width: 200px; height: 100px; bottom: 0; left: 100px; background: #8e1a1a; transform: rotateY(90deg) translateZ(100px); }
-.box-base .left { width: 200px; height: 100px; bottom: 0; left: -100px; background: #8e1a1a; transform: rotateY(-90deg) translateZ(100px); }
-.box-base .bottom { width: 200px; height: 200px; bottom: 0; background: #500808; transform: rotateX(-90deg) translateZ(0px); }
-/* Box Lid */
-.box-lid { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); transform-origin: bottom; }
-.box-lid .front { width: 210px; height: 40px; top: 60px; left: -5px; background: #a52a2a; transform: translateZ(105px); }
-.box-lid .back { width: 210px; height: 40px; top: 60px; left: -5px; background: #a52a2a; transform: rotateY(180deg) translateZ(105px); }
-.box-lid .right { width: 210px; height: 40px; top: 60px; left: 100px; background: #c0392b; transform: rotateY(90deg) translateZ(105px); }
-.box-lid .left { width: 210px; height: 40px; top: 60px; left: -110px; background: #c0392b; transform: rotateY(-90deg) translateZ(105px); }
-.box-lid .top { width: 210px; height: 210px; top: 60px; left: -5px; background: #d35400; transform: rotateX(90deg) translateZ(105px); }
-/* Ribbons */
-.ribbon-face.top-h { width: 40px; height: 212px; top: 59px; left: 80px; background: #f1c40f; transform: rotateX(90deg) translateZ(106px); }
-.ribbon-face.top-v { width: 212px; height: 40px; top: 144px; left: -6px; background: #f1c40f; transform: rotateX(90deg) translateZ(106px); }
-.ribbon-face.front-v { width: 40px; height: 102px; bottom: -1px; left: 80px; background: #f39c12; transform: translateZ(101px); }
-.ribbon-face.right-v { width: 40px; height: 102px; bottom: -1px; left: 80px; background: #e67e22; transform: rotateY(90deg) translateZ(160px); }
 
-/* Animation Effects */
-.gift-box-container.is-opening .box-lid { transform: translateY(-100px) rotateX(-120deg); }
-.box-glow { position: absolute; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255, 255, 224, 0.8), transparent 70%); border-radius: 50%; bottom: -25px; left: 25px; z-index: -1; opacity: 0; transition: opacity 1s 0.5s; }
-.gift-box-container.is-opening .box-glow { opacity: 1; }
-.prize-card { position: absolute; bottom: 50px; left: 25px; width: 150px; height: auto; padding: 20px 10px; background: linear-gradient(135deg, #fff, #eee); color: #333; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-align: center; transform: translateY(50px); opacity: 0; transition: all 1s 1s cubic-bezier(0.18, 0.89, 0.32, 1.28); z-index: 100; }
-.prize-card h4 { margin: 0 0 10px; font-size: 1.1rem; color: var(--saffron); }
-.prize-card p { margin: 0; font-size: 1.5rem; font-weight: 700; color: var(--green); }
-.gift-box-container.is-opening .prize-card { transform: translateY(-50px); opacity: 1; }
-#gift-message-container { margin-top: 40px; } /* Hide the old message container by default */
+/* Layer 3: Orbiting Comet */
+.comet-container {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    animation: spin 10s linear infinite;
+    z-index: 3;
+}
+.comet {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: var(--white);
+    border-radius: 50%;
+    box-shadow: 0 0 15px 3px var(--white);
+    animation: comet-orbit 2.5s infinite ease-in-out;
+}
+
+/* Keyframe Animations */
+@keyframes pulse {
+    0%, 100% { transform: scale(0.8); opacity: 0.4; }
+    50% { transform: scale(1); opacity: 0.8; }
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+@keyframes spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+@keyframes comet-orbit {
+    0%, 100% { transform: translate(-50%, -10px) scale(0.5); opacity: 0.5; }
+    50% { transform: translate(-50%, 10px) scale(1); opacity: 1; }
+}
