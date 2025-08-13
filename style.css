@@ -8,14 +8,11 @@
 }
 body { font-family: 'Montserrat', sans-serif; margin: 0; background-color: var(--dark-grey); color: var(--light-grey); text-align: center; overflow-x: hidden; }
 .background-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: linear-gradient(135deg, rgba(255, 153, 51, 0.1), rgba(19, 136, 8, 0.1), rgba(0, 0, 128, 0.1)); background-size: 400% 400%; animation: gradient-flow 15s ease infinite; }
-@keyframes gradient-flow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 .fade-in { animation: fadeIn 1.5s ease-in-out; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 .animate-pop-in { opacity: 0; transform: translateY(20px) scale(0.95); animation: popIn 0.8s ease-out forwards; }
 .hero-section .animate-pop-in:nth-child(1) { animation-delay: 0.2s; }
 .hero-section .animate-pop-in:nth-child(2) { animation-delay: 0.4s; }
 .hero-section .animate-pop-in:nth-child(3) { animation-delay: 0.6s; }
-@keyframes popIn { to { opacity: 1; transform: translateY(0) scale(1); } }
 .container { max-width: 800px; margin: 40px auto; padding: 40px; background: rgba(44, 62, 80, 0.8); border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
 .offer-description { font-size: 1.1rem; line-height: 1.7; max-width: 600px; margin: 20px auto; }
 #registration-form { margin: 40px 0; }
@@ -29,9 +26,9 @@ button:disabled { background: grey; cursor: not-allowed; transform: none; box-sh
 .ad-container img { max-width: 100%; border-radius: 15px; margin-top: 20px; }
 
 /*
-=========================================
-PREMIUM 3D GIFT BOX STYLES
-=========================================
+============================================================
+▼▼▼ PREMIUM 3D GIFT BOX (JO KHULTA HAI) KA CODE YAHAN HAI ▼▼▼
+============================================================
 */
 .gift-boxes {
     display: flex;
@@ -61,26 +58,26 @@ PREMIUM 3D GIFT BOX STYLES
     position: absolute;
     border: 2px solid #333;
 }
-/* Box Base */
+/* Box ka neeche ka hissa */
 .box-base .front { width: 200px; height: 100px; bottom: 0; background: #6a0d0d; transform: translateZ(100px); }
 .box-base .back { width: 200px; height: 100px; bottom: 0; background: #6a0d0d; transform: rotateY(180deg) translateZ(100px); }
 .box-base .right { width: 200px; height: 100px; bottom: 0; left: 100px; background: #8e1a1a; transform: rotateY(90deg) translateZ(100px); }
 .box-base .left { width: 200px; height: 100px; bottom: 0; left: -100px; background: #8e1a1a; transform: rotateY(-90deg) translateZ(100px); }
 .box-base .bottom { width: 200px; height: 200px; bottom: 0; background: #500808; transform: rotateX(-90deg) translateZ(0px); }
-/* Box Lid */
+/* Box ka dhakkan */
 .box-lid { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); transform-origin: bottom; }
 .box-lid .front { width: 210px; height: 40px; top: 60px; left: -5px; background: #a52a2a; transform: translateZ(105px); }
 .box-lid .back { width: 210px; height: 40px; top: 60px; left: -5px; background: #a52a2a; transform: rotateY(180deg) translateZ(105px); }
 .box-lid .right { width: 210px; height: 40px; top: 60px; left: 100px; background: #c0392b; transform: rotateY(90deg) translateZ(105px); }
 .box-lid .left { width: 210px; height: 40px; top: 60px; left: -110px; background: #c0392b; transform: rotateY(-90deg) translateZ(105px); }
 .box-lid .top { width: 210px; height: 210px; top: 60px; left: -5px; background: #d35400; transform: rotateX(90deg) translateZ(105px); }
-/* Ribbons */
+/* Box ke upar Ribbon */
 .ribbon-face.top-h { width: 40px; height: 212px; top: 59px; left: 80px; background: #f1c40f; transform: rotateX(90deg) translateZ(106px); }
 .ribbon-face.top-v { width: 212px; height: 40px; top: 144px; left: -6px; background: #f1c40f; transform: rotateX(90deg) translateZ(106px); }
 .ribbon-face.front-v { width: 40px; height: 102px; bottom: -1px; left: 80px; background: #f39c12; transform: translateZ(101px); }
 .ribbon-face.right-v { width: 40px; height: 102px; bottom: -1px; left: 80px; background: #e67e22; transform: rotateY(90deg) translateZ(160px); }
 
-/* Animation Effects */
+/* Box khulne par hone waale animations */
 .gift-box-container.is-opening .box-lid { transform: translateY(-100px) rotateX(-120deg); }
 .box-glow { position: absolute; width: 150px; height: 150px; background: radial-gradient(circle, rgba(255, 255, 224, 0.8), transparent 70%); border-radius: 50%; bottom: -25px; left: 25px; z-index: -1; opacity: 0; transition: opacity 1s 0.5s; }
 .gift-box-container.is-opening .box-glow { opacity: 1; }
@@ -89,6 +86,11 @@ PREMIUM 3D GIFT BOX STYLES
 .prize-card p { margin: 0; font-size: 1.5rem; font-weight: 700; color: var(--green); }
 .gift-box-container.is-opening .prize-card { transform: translateY(-50px); opacity: 1; }
 #gift-message-container { margin-top: 40px; }
+/*
+============================================================
+▲▲▲ PREMIUM 3D GIFT BOX KA CODE YAHAN KHATAM HOTA HAI ▲▲▲
+============================================================
+*/
 
 footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
 .social-media img { width: 40px; margin: 10px; transition: transform 0.2s; }
@@ -97,9 +99,9 @@ footer { padding: 30px; margin-top: 40px; background: rgba(0,0,0,0.2); }
 .home-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.3); }
 
 /*
-=========================================
-ULTRA PREMIUM COSMIC CHAKRA ANIMATION
-=========================================
+========================================================================
+▼▼▼ LOGO KE PEECHE WALA "COSMIC CHAKRA" ANIMATION KA CODE YAHAN HAI ▼▼▼
+========================================================================
 */
 .logo-animation-container {
     position: relative;
@@ -116,6 +118,7 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     width: 140px;
     height: auto;
 }
+/* Layer 1: Dheere se jalne-bujhne wali roshni */
 .pulsing-energy {
     position: absolute;
     width: 160px;
@@ -125,6 +128,7 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     animation: pulse 5s infinite ease-in-out;
     z-index: 1;
 }
+/* Layer 2: Ghoomne waale Chakra Rings */
 .cosmic-chakra {
     position: absolute;
     width: 100%;
@@ -155,6 +159,7 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     animation: spin-reverse 30s linear infinite;
     opacity: 0.7;
 }
+/* Layer 3: Ghoomne wala sitaara (Comet) */
 .comet-container {
     position: absolute;
     width: 280px;
@@ -173,50 +178,128 @@ ULTRA PREMIUM COSMIC CHAKRA ANIMATION
     box-shadow: 0 0 15px 3px var(--white);
     animation: comet-orbit 2.5s infinite ease-in-out;
 }
-@keyframes pulse {
-    0%, 100% { transform: scale(0.8); opacity: 0.4; }
-    50% { transform: scale(1); opacity: 0.8; }
-}
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-@keyframes spin-reverse {
-    from { transform: rotate(360deg); }
-    to { transform: rotate(0deg); }
-}
-@keyframes comet-orbit {
-    0%, 100% { transform: translate(-50%, -10px) scale(0.5); opacity: 0.5; }
-    50% { transform: translate(-50%, 10px) scale(1); opacity: 1; }
-}
+/*
+========================================================================
+▲▲▲ LOGO "COSMIC CHAKRA" ANIMATION KA CODE YAHAN KHATAM HOTA HAI ▲▲▲
+========================================================================
+*/
 
 /*
-=========================================
-MULTI-LINE GRADIENT TITLE STYLES
-=========================================
+====================================================================
+▼▼▼ HEADING WALE MULTI-LINE GRADIENT TEXT KA CODE YAHAN HAI ▼▼▼
+====================================================================
 */
 .multi-line-title span {
-    display: block; /* Har span ko apni alag line deta hai */
-    line-height: 1.3; /* Lines ke beech ka gap */
+    display: block; /* Har line ko alag banata hai */
+    line-height: 1.3;
 }
-/* Pehli line ka style (Badi aur bold) */
+/* Pehli line ka style */
 .multi-line-title span:nth-child(1) {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
     letter-spacing: -1px;
 }
-/* Doosri line ka style (Chhoti aur halki) */
+/* Doosri line ka style */
 .multi-line-title span:nth-child(2) {
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
     font-weight: 600;
     letter-spacing: 1px;
-    margin-top: 10px; /* Upar waali line se thoda gap */
+    margin-top: 10px;
 }
-/* Gradient effect jo dono par lagega */
+/* Dono lines par lagne wala gradient effect */
 .multi-line-title {
     background: linear-gradient(90deg, var(--saffron), var(--white), var(--green));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent; /* Fallback ke liye */
-    margin-bottom: 25px; /* Neeche paragraph se thoda gap */
+    color: transparent;
+    margin-bottom: 25px;
 }
+/*
+====================================================================
+▲▲▲ MULTI-LINE GRADIENT TEXT KA CODE YAHAN KHATAM HOTA HAI ▲▲▲
+====================================================================
+*/
+
+/*
+====================================================================
+▼▼▼ SHARE BUTTON AUR TEXT WALE SECTION KA CODE YAHAN HAI ▼▼▼
+====================================================================
+*/
+.share-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 15px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeIn 1s 0.5s forwards;
+}
+.share-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--light-grey);
+    margin: 0;
+}
+.share-btn {
+    background: linear-gradient(90deg, #1e90ff, #00bfff);
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 0;
+    border: 2px solid var(--white);
+}
+/*
+====================================================================
+▲▲▲ SHARE SECTION KA CODE YAHAN KHATAM HOTA HAI ▲▲▲
+====================================================================
+*/
+
+/*
+================================================================
+▼▼▼ SAARI ANIMATIONS KE KEYFRAMES (RULES) YAHAN HAIN ▼▼▼
+================================================================
+*/
+/* Logo ke peeche wali roshni ke liye */
+@keyframes pulse {
+    0%, 100% { transform: scale(0.8); opacity: 0.4; }
+    50% { transform: scale(1); opacity: 0.8; }
+}
+/* Seedha ghoomne ke liye (Chakra, Spinner, etc.) */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+/* Ulta ghoomne ke liye */
+@keyframes spin-reverse {
+    from { transform: rotate(360deg); }
+    to { transform: rotate(0deg); }
+}
+/* Sitaare ke ghoomne ka style */
+@keyframes comet-orbit {
+    0%, 100% { transform: translate(-50%, -10px) scale(0.5); opacity: 0.5; }
+    50% { transform: translate(-50%, 10px) scale(1); opacity: 1; }
+}
+/* Cheezon ko dheere se dikhane ke liye */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* Text ko pop-up karke dikhane ke liye */
+@keyframes popIn {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* Background mein rang badalne ke liye */
+@keyframes gradient-flow {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+/*
+================================================================
+▲▲▲ KEYFRAMES YAHAN KHATAM HOTE HAIN ▲▲▲
+================================================================
+*/
